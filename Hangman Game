@@ -1,0 +1,37 @@
+import random
+def choose_word():
+    word_list=["code","alpha","codealpha","programming","python"]
+    return random.choice(word_list)
+def display(word,guessed):
+    result=""
+    for i in word:
+        if i in guessed:
+            result+=i
+        else:
+            result+='_'
+    return result
+def hangman():
+    word=choose_word()
+    guessed=set()
+    attempts=5
+    print("Welcome to the game")
+    while attempts>0:
+        print(f"Word is {display(word,guessed)}")
+        guess=input("Guess a letter: ").lower()
+        if guess in guessed:
+            attempts-=1
+            print(f"You already guessed it and remaining attempts is{attempts}")
+        elif guess in word:
+            guessed.add(guess)
+            print("Correct!")
+        else:
+            attempts-=1
+            guessed.add(guess)
+            print(f"wrong! attempts left: {attempts}")
+        if set(word)<=guessed:
+            print(f"Congratulations, you guessed the word {word}")
+            break
+    else:
+        print(f"Game over! The word was {word}")
+hangman()
+
